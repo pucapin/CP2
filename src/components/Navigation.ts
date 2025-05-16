@@ -22,6 +22,23 @@ class Navigation extends HTMLElement {
             justify-content: center;
             gap: 100px; 
             }
+        button {
+        margin-top: 10px;
+        background-color: #8fbc8f;
+        border: none;
+        border-radius: 10px;
+        padding: 8px 16px;
+        font-size: 1rem;
+        cursor: pointer;
+        color: white;
+        font-weight: bold;
+        box-shadow: 2px 2px 0 #5a7f5a;
+        transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #6fa86f;
+        }
         </style>
         <nav>
             <button id="all-btn" navigate-to="/"> All Plants </button>

@@ -38,7 +38,22 @@ class EditPlants extends HTMLElement {
         if (!Array.isArray(plants)) return;
         
         this.shadowRoot.innerHTML = `
-        <h2>Editing Mode</h2>
+        <style>
+        h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        </style>
+        <h1>Editing Mode</h1>
         <div class="container">
         </div>
         `;

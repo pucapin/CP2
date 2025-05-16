@@ -16,7 +16,11 @@ export type AddPlantPayload = {
     plant: RawPlant
 }
 
-export type Payload = PathPayload | EditPayload | SetPlantsPayload | AddPlantPayload | null;
+export type RemovePlantPayload = {
+    name: string
+}
+
+export type Payload = PathPayload | EditPayload | SetPlantsPayload | AddPlantPayload | RemovePlantPayload | null;
 
 export interface Action {
     type: string;

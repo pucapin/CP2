@@ -18,9 +18,6 @@ class RenderAll extends HTMLElement {
 
 connectedCallback() {
   const { plants } = store.getState();
-    console.log('Initial plants from store:', plants);
-
-
   if (!plants || plants.length === 0) {
     
     getPlants().then(data => {
@@ -39,7 +36,25 @@ connectedCallback() {
     if (!this.shadowRoot) return;
     if (!Array.isArray(plants)) return;
 
-    this.shadowRoot.innerHTML = `<div class="container"></div>`;
+    this.shadowRoot.innerHTML = `
+    <style>
+          h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+    .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    }
+
+    </style>
+    <h1>All Plants :D</h1>
+    <div class="container"></div>`;
     const container = this.shadowRoot.querySelector('.container');
 
     plants.forEach(plant => {

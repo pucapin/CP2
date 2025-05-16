@@ -14,6 +14,10 @@ export const AddGardenType = {
     ADD_GARDEN: 'ADD_GARDEN',
 }
 
+export const RemoveGardenType = {
+    REMOVE_GARDEN: 'REMOVE_GARDEN',
+}
+
 export const NavigateActions = {
     navigate: (path: string) => {
         AppDispatcher.dispatch({
@@ -43,6 +47,16 @@ export const AddActions = {
         AppDispatcher.dispatch({
             type: AddGardenType.ADD_GARDEN,
             payload: {plant}
+        })
+    }
+}
+
+
+export const RemoveActions = {
+    RemoveFromGarden: (name: string) => {
+        AppDispatcher.dispatch({
+            type: AddGardenType.ADD_GARDEN,
+            payload: name
         })
     }
 }

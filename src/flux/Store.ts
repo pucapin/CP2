@@ -1,5 +1,5 @@
-import { AppDispatcher, Action, AddPlantPayload } from './Dispatcher';
-import { AddGardenType, NavigateActionsType, UpdateActionType } from './Actions';
+import { AppDispatcher, Action, AddPlantPayload, RemovePlantPayload } from './Dispatcher';
+import { AddGardenType, NavigateActionsType, RemoveGardenType, UpdateActionType } from './Actions';
 import { PathPayload } from './Dispatcher';
 import { EditPayload } from './Dispatcher';
 import { SetPlantsPayload } from './Dispatcher';
@@ -84,6 +84,14 @@ class Store {
                     this._myState = {
                         ...this._myState,
                         garden: [...this._myState.garden, plant]
+                    };
+                    this._emitChange();
+            break;
+                case RemoveGardenType.REMOVE_GARDEN:
+                    const name: string = (action.payload as RemovePlantPayload).name
+                    this._myState = {
+                        ...this._myState,
+                        garden: this._myState.garden.filter(plant => plant.scientific_name !== name)
                     };
                     this._emitChange();
             break;

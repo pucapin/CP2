@@ -28,7 +28,7 @@ class Root extends HTMLElement {
                 content.innerHTML = `<render-all></render-all>`;
                 break;
             case '/garden':
-                content.innerHTML = `<garden-page></-page>`;
+                content.innerHTML = `<render-garden></render-garden>`;
                 break;
             case '/edit':
                 content.innerHTML = `<edit-page></edit-page>`;
