@@ -1,39 +1,59 @@
-import { store } from '../flux/Store';
-import { State } from '../flux/Store';
+
 import { RawPlant } from '../Types/Types';
 import { getPlants } from '../services/getPlants';
+import { store } from '../flux/Store';
+import { State } from '../flux/Store';
+import { UpdateActions } from '../flux/Actions';
 
 class RenderAll extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
 
-    }
+    // Subscribe to store changes here once
+    store.subscribe(() => {
+      this.render();
+    });
+  }
 
-    connectedCallback() {
-        //store.subscribe((state:State) => {this.render(state)})
-        this.render()
-    }
+connectedCallback() {
+  const { plants } = store.getState();
+    console.log('Initial plants from store:', plants);
 
-    async render() {
-        const data:RawPlant[] = await getPlants();
 
-        if (!this.shadowRoot) return;
+  if (!plants || plants.length === 0) {
+    
+    getPlants().then(data => {
+      UpdateActions.setPlants(data);
+      this.render();  // render after data is set
+    });
+  } else {
+    this.render(); // render immediately if plants already exist
+  }
+}
 
-        this.shadowRoot.innerHTML = `
-        <div class="container">
-        </div>
-        `;
-        const container = this.shadowRoot.querySelector('.container');
-        data.forEach(element => {
-            const plant = document.createElement('plant-card');
-            plant.setAttribute('img', element.img);
-            plant.setAttribute('c-name', element.commonName);
-            plant.setAttribute('s-name', element.scientificName);
-            container?.appendChild(plant);
-        });
 
-    }
+  async render() {
+    const { plants } = store.getState();
+
+    if (!this.shadowRoot) return;
+    if (!Array.isArray(plants)) return;
+
+    this.shadowRoot.innerHTML = `<div class="container"></div>`;
+    const container = this.shadowRoot.querySelector('.container');
+
+    plants.forEach(plant => {
+      const plantCard = document.createElement('plant-card');
+      plantCard.setAttribute('img', plant.img);
+      plantCard.setAttribute('c-name', plant.common_name);
+      plantCard.setAttribute('s-name', plant.scientific_name);
+      plantCard.setAttribute('type', plant.type);
+      plantCard.setAttribute('flowering', plant.flowering_season);
+      plantCard.setAttribute('sun', plant.sun_exposure)
+      plantCard.setAttribute('watering', plant.watering)
+      container?.appendChild(plantCard);
+    });
+  }
 }
 
 export default RenderAll;

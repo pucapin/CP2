@@ -1,7 +1,28 @@
+import { EditField } from "../Types/Types"
+import { RawPlant } from "../Types/Types"
+export type PathPayload = {
+    path: string
+}
+
+export type EditPayload = {
+    updated: EditField
+}
+
+export type SetPlantsPayload = {
+    plants: RawPlant[]
+}
+
+export type AddPlantPayload = {
+    plant: RawPlant
+}
+
+export type Payload = PathPayload | EditPayload | SetPlantsPayload | AddPlantPayload | null;
+
 export interface Action {
     type: string;
-    payload?: string;
+    payload?: Payload;
 }
+
 
 export class Dispatcher {
     private _listeners: Array<(action: Action) => void>;

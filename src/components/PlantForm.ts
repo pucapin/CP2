@@ -14,31 +14,31 @@ class PlantForm extends HTMLElement {
 
         this.shadowRoot.innerHTML = `
         <form>
-        <label>
-        Name:
-        <input name="name">
-        </input>
-        </label>
-        <label>
-        Scientific Name:
-        <input name="s-name">
-        </input>
-        </label>
-        <label>
-        ID:
-        <input name="id">
-        </input>
-        </label> 
-                <label>
-        Type:
-        <input name="type">
-        </input>
-        </label>     
+            <label>
+            Name:
+            <input name="name">
+            </input>
+            </label>
+            <label>
+            Scientific Name:
+            <input name="s-name">
+            </input>
+            </label>
+            <label>
+            ID:
+            <input name="id">
+            </input>
+            </label> 
+                    <label>
+            Type:
+            <input name="type">
+            </input>
+            </label>     
         </form>
         `;
         const form = this.shadowRoot.querySelector('form');
         form?.addEventListener('submit', (e) => {
-            e.defaultPrevented;
+            e.preventDefault();
             const formData = new FormData()
             fetch('http://192.168.131.101:8080/dca/api/plants', {
                 method: 'POST',
